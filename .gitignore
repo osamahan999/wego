@@ -1,0 +1,8 @@
+# Package management
+/venv
+
+# auto-generated directories
+/.idea
+
+# Environment secrets
+.env
