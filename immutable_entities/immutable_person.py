@@ -4,7 +4,7 @@ from typing import Optional
 
 # Immutable entity for Me
 @dataclass(frozen=True)
-class Person:
+class ImmutablePerson:
     key: str
     username: str
     first_name: str
@@ -12,7 +12,7 @@ class Person:
     email: str
     phone_number: str
 
-    class PersonBuilder:
+    class ImmutablePersonBuilder:
         key: Optional[str]
         username: Optional[str]
         first_name: Optional[str]
@@ -28,31 +28,39 @@ class Person:
             self.email = None
             self.phone_number = None
 
-        def set_key(self, key: str) -> "Person.PersonBuilder":
+        def set_key(self, key: str) -> "ImmutablePerson.ImmutablePersonBuilder":
             self.key = key
             return self
 
-        def set_username(self, username: str) -> "Person.PersonBuilder":
+        def set_username(
+            self, username: str
+        ) -> "ImmutablePerson.ImmutablePersonBuilder":
             self.username = username
             return self
 
-        def set_first_name(self, first_name: str) -> "Person.PersonBuilder":
+        def set_first_name(
+            self, first_name: str
+        ) -> "ImmutablePerson.ImmutablePersonBuilder":
             self.first_name = first_name
             return self
 
-        def set_last_name(self, last_name: str) -> "Person.PersonBuilder":
+        def set_last_name(
+            self, last_name: str
+        ) -> "ImmutablePerson.ImmutablePersonBuilder":
             self.last_name = last_name
             return self
 
-        def set_email(self, email: str) -> "Person.PersonBuilder":
+        def set_email(self, email: str) -> "ImmutablePerson.ImmutablePersonBuilder":
             self.email = email
             return self
 
-        def set_phone_number(self, phone_number: str) -> "Person.PersonBuilder":
+        def set_phone_number(
+            self, phone_number: str
+        ) -> "ImmutablePerson.ImmutablePersonBuilder":
             self.phone_number = phone_number
             return self
 
-        def build(self) -> "Person":
+        def build(self) -> "ImmutablePerson":
             assert self.key
             assert self.username
             assert self.first_name
@@ -60,7 +68,7 @@ class Person:
             assert self.email
             assert self.phone_number
 
-            return Person(
+            return ImmutablePerson(
                 key=self.key,
                 username=self.username,
                 first_name=self.first_name,
@@ -69,9 +77,9 @@ class Person:
                 phone_number=self.phone_number,
             )
 
-    def to_builder(self) -> PersonBuilder:
+    def to_builder(self) -> ImmutablePersonBuilder:
         return (
-            self.PersonBuilder()
+            self.ImmutablePersonBuilder()
             .set_key(self.key)
             .set_email(self.email)
             .set_username(self.username)

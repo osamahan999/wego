@@ -1,0 +1,1 @@
+from .immutable_chat_group_test import ImmutableChatGroupTest

@@ -1,10 +1,10 @@
 from unittest import TestCase
 
-from immutable_entities.person import Person
+from immutable_entities.immutable_person import ImmutablePerson
 
 
-class PersonTest(TestCase):
-    def test_person_builder(self):
+class ImmutablePersonTest(TestCase):
+    def test_immutable_person_builder(self):
         key: str = "key"
         username: str = "username"
         first_name: str = "name"
@@ -13,12 +13,15 @@ class PersonTest(TestCase):
         phone_number: str = "6505155555"
 
         # Assert that PersonBuilder constructor works
-        self.assertIsNotNone(Person.PersonBuilder())
-        self.assertIsInstance(Person.PersonBuilder(), Person.PersonBuilder)
+        self.assertIsNotNone(ImmutablePerson.ImmutablePersonBuilder())
+        self.assertIsInstance(
+            ImmutablePerson.ImmutablePersonBuilder(),
+            ImmutablePerson.ImmutablePersonBuilder,
+        )
 
         # Assert that PersonBuilder.build
-        person: Person = (
-            Person.PersonBuilder()
+        person: ImmutablePerson = (
+            ImmutablePerson.ImmutablePersonBuilder()
             .set_key(key)
             .set_username(username)
             .set_first_name(first_name)
@@ -38,7 +41,9 @@ class PersonTest(TestCase):
         self.assertEqual(person.email, email)
 
         # to_builder
-        self.assertIsInstance(person.to_builder(), Person.PersonBuilder)
+        self.assertIsInstance(
+            person.to_builder(), ImmutablePerson.ImmutablePersonBuilder
+        )
 
         # Assert data integrity from class to builder
         self.assertEqual(person.to_builder().key, key)

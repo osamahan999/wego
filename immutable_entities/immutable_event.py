@@ -4,7 +4,7 @@ from typing import Optional
 
 # Immutable entity for Event
 @dataclass(frozen=True)
-class Event:
+class ImmutableEvent:
     key: str
     name: str
     description: str
@@ -14,7 +14,7 @@ class Event:
     owner_id: str
     attendee_ids: frozenset[str]
 
-    class EventBuilder:
+    class ImmutableEventBuilder:
         key: Optional[str]
         name: Optional[str]
         description: Optional[str]
@@ -34,39 +34,47 @@ class Event:
             self.owner_id = None
             self.attendee_ids = []
 
-        def set_key(self, key: str) -> "Event.EventBuilder":
+        def set_key(self, key: str) -> "ImmutableEvent.ImmutableEventBuilder":
             self.key = key
             return self
 
-        def set_name(self, name: str) -> "Event.EventBuilder":
+        def set_name(self, name: str) -> "ImmutableEvent.ImmutableEventBuilder":
             self.name = name
             return self
 
-        def set_description(self, description: str) -> "Event.EventBuilder":
+        def set_description(
+            self, description: str
+        ) -> "ImmutableEvent.ImmutableEventBuilder":
             self.description = description
             return self
 
-        def set_location(self, location: str) -> "Event.EventBuilder":
+        def set_location(self, location: str) -> "ImmutableEvent.ImmutableEventBuilder":
             self.location = location
             return self
 
-        def set_latitude(self, latitude: float) -> "Event.EventBuilder":
+        def set_latitude(
+            self, latitude: float
+        ) -> "ImmutableEvent.ImmutableEventBuilder":
             self.latitude = latitude
             return self
 
-        def set_longitude(self, longitude: float) -> "Event.EventBuilder":
+        def set_longitude(
+            self, longitude: float
+        ) -> "ImmutableEvent.ImmutableEventBuilder":
             self.longitude = longitude
             return self
 
-        def set_owner_id(self, owner_id: str) -> "Event.EventBuilder":
+        def set_owner_id(self, owner_id: str) -> "ImmutableEvent.ImmutableEventBuilder":
             self.owner_id = owner_id
             return self
 
-        def set_attendee_ids(self, attendee_ids: list[str]) -> "Event.EventBuilder":
+        def set_attendee_ids(
+            self, attendee_ids: list[str]
+        ) -> "ImmutableEvent.ImmutableEventBuilder":
             self.attendee_ids = attendee_ids
             return self
 
-        def build(self) -> "Event":
+        def build(self) -> "ImmutableEvent":
             assert self.key
             assert self.name
             assert self.description
@@ -76,7 +84,7 @@ class Event:
             assert self.owner_id
             assert self.attendee_ids
 
-            return Event(
+            return ImmutableEvent(
                 key=self.key,
                 name=self.name,
                 description=self.description,
@@ -87,9 +95,9 @@ class Event:
                 attendee_ids=frozenset(self.attendee_ids),
             )
 
-    def to_builder(self) -> EventBuilder:
+    def to_builder(self) -> ImmutableEventBuilder:
         return (
-            self.EventBuilder()
+            self.ImmutableEventBuilder()
             .set_key(self.key)
             .set_name(self.name)
             .set_description(self.description)
