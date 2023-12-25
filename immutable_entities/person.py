@@ -72,6 +72,7 @@ class Person:
     def to_builder(self) -> PersonBuilder:
         return (
             self.PersonBuilder()
+            .set_key(self.key)
             .set_email(self.email)
             .set_username(self.username)
             .set_phone_number(self.phone_number)
