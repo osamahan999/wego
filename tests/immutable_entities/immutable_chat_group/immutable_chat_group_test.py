@@ -25,14 +25,14 @@ class ImmutableChatGroupTest(TestCase):
             .build(),
         ]
 
-        # Assert that EventBuilder constructor works
+        # Assert that ImmutableChatGroup constructor works
         self.assertIsNotNone(ImmutableChatGroup.ImmutableChatGroupBuilder())
         self.assertIsInstance(
             ImmutableChatGroup.ImmutableChatGroupBuilder(),
             ImmutableChatGroup.ImmutableChatGroupBuilder,
         )
 
-        # Assert that EventBuilder.build
+        # Assert that ImmutableChatGroupBuilder.build
         chat_group: ImmutableChatGroup = (
             ImmutableChatGroup.ImmutableChatGroupBuilder()
             .set_key(key)
