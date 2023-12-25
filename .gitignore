@@ -3,6 +3,7 @@
 
 # auto-generated directories
 /.idea
+*__pycache__
 
 # Environment secrets
 .env
