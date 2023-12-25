@@ -1,0 +1,2 @@
+class ImmutableConstructorException(Exception):
+    pass
