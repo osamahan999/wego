@@ -5,7 +5,7 @@ from typing import Optional
 # Immutable entity for Me
 @dataclass(frozen=True)
 class ImmutablePerson:
-    key: str
+    key: Optional[str]
     username: str
     first_name: str
     last_name: str

@@ -5,7 +5,7 @@ from typing import Optional
 # Immutable entity for Event
 @dataclass(frozen=True)
 class ImmutableEvent:
-    key: str
+    key: Optional[str]
     name: str
     description: str
     location: str

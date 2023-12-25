@@ -7,7 +7,7 @@ from immutable_entities.immutable_chat import ImmutableChat
 # Immutable entity for ChatGroup
 @dataclass(frozen=True)
 class ImmutableChatGroup:
-    key: str
+    key: Optional[str]
     messages: frozenset[ImmutableChat]
 
     class ImmutableChatGroupBuilder:

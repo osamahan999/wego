@@ -5,7 +5,7 @@ from typing import Optional
 # Immutable entity for Chat
 @dataclass(frozen=True)
 class ImmutableChat:
-    key: str
+    key: Optional[str]
     message_text: str
     author_id: str
 
