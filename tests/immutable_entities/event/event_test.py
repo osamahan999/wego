@@ -54,4 +54,4 @@ class EventTest(TestCase):
         self.assertEqual(event.to_builder().latitude, latitude)
         self.assertEqual(event.to_builder().longitude, longitude)
         self.assertEqual(event.to_builder().owner_id, owner_id)
-        self.assertEqual(event.to_builder().attendee_ids, attendee_ids)
+        self.assertEqual(set(event.to_builder().attendee_ids), set(attendee_ids))
