@@ -35,3 +35,14 @@ jobs:
           DEBUG_MODE: True
       run: |
         python manage.py test
+    - name: Run server
+      env:
+        SECRET_KEY: secretkey
+        DB_NAME: test
+        DB_USER: test
+        DB_PASSWORD: test
+        DB_HOST: test
+        DB_PORT: 5432
+        DEBUG_MODE: True
+      run: |
+        python manage.py runserver
