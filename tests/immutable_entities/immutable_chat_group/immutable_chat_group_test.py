@@ -6,20 +6,20 @@ from immutable_entities.immutable_chat_group import ImmutableChatGroup
 
 class ImmutableChatGroupTest(TestCase):
     def test_immutable_chat_group_builder(self):
-        key: str = "key"
+        key: int = "0"
         messages: list[ImmutableChat] = [
             ImmutableChat.ImmutableChatBuilder()
-            .set_key("message_1")
+            .set_key(1)
             .set_message_text("message1")
             .set_author_id("author_1")
             .build(),
             ImmutableChat.ImmutableChatBuilder()
-            .set_key("message_2")
+            .set_key(2)
             .set_message_text("message2")
             .set_author_id("author_2")
             .build(),
             ImmutableChat.ImmutableChatBuilder()
-            .set_key("message_3")
+            .set_key(3)
             .set_message_text("message3")
             .set_author_id("author_1")
             .build(),

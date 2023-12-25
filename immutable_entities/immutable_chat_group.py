@@ -7,18 +7,18 @@ from immutable_entities.immutable_chat import ImmutableChat
 # Immutable entity for ChatGroup
 @dataclass(frozen=True)
 class ImmutableChatGroup:
-    key: Optional[str]
+    key: Optional[int]
     messages: frozenset[ImmutableChat]
 
     class ImmutableChatGroupBuilder:
-        key: Optional[str]
+        key: Optional[int]
         messages: list[ImmutableChat]
 
         def __init__(self):
             self.key = None
             self.messages = []
 
-        def set_key(self, key: str) -> "ImmutableChatGroup.ImmutableChatGroupBuilder":
+        def set_key(self, key: int) -> "ImmutableChatGroup.ImmutableChatGroupBuilder":
             self.key = key
             return self
 

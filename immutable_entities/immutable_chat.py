@@ -5,21 +5,21 @@ from typing import Optional
 # Immutable entity for Chat
 @dataclass(frozen=True)
 class ImmutableChat:
-    key: Optional[str]
+    key: Optional[int]
     message_text: str
-    author_id: str
+    author_id: int
 
     class ImmutableChatBuilder:
-        key: Optional[str]
+        key: Optional[int]
         message_text: Optional[str]
-        author_id: Optional[str]
+        author_id: Optional[int]
 
         def __init__(self):
             self.key = None
             self.message_text = None
             self.author_id = None
 
-        def set_key(self, key: str) -> "ImmutableChat.ImmutableChatBuilder":
+        def set_key(self, key: int) -> "ImmutableChat.ImmutableChatBuilder":
             self.key = key
             return self
 
@@ -29,7 +29,7 @@ class ImmutableChat:
             self.message_text = message_text
             return self
 
-        def set_author_id(self, author_id: str) -> "ImmutableChat.ImmutableChatBuilder":
+        def set_author_id(self, author_id: int) -> "ImmutableChat.ImmutableChatBuilder":
             self.author_id = author_id
             return self
 
