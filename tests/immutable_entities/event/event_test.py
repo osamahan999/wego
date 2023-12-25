@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from immutable_entities.event import Event
+from immutable_entities.immutable_event import ImmutableEvent
 
 
 class EventTest(TestCase):
@@ -15,12 +15,14 @@ class EventTest(TestCase):
         attendee_ids: list[str] = ["string1", "string2"]
 
         # Assert that EventBuilder constructor works
-        self.assertIsNotNone(Event.EventBuilder())
-        self.assertIsInstance(Event.EventBuilder(), Event.EventBuilder)
+        self.assertIsNotNone(ImmutableEvent.ImmutableEventBuilder())
+        self.assertIsInstance(
+            ImmutableEvent.ImmutableEventBuilder(), ImmutableEvent.ImmutableEventBuilder
+        )
 
         # Assert that EventBuilder.build
-        event: Event = (
-            Event.EventBuilder()
+        event: ImmutableEvent = (
+            ImmutableEvent.ImmutableEventBuilder()
             .set_key(key)
             .set_name(name)
             .set_description(description)
@@ -44,7 +46,7 @@ class EventTest(TestCase):
         self.assertEqual(event.attendee_ids, frozenset(attendee_ids))
 
         # to_builder
-        self.assertIsInstance(event.to_builder(), Event.EventBuilder)
+        self.assertIsInstance(event.to_builder(), ImmutableEvent.ImmutableEventBuilder)
 
         # Assert data integrity from class to builder
         self.assertEqual(event.to_builder().key, key)
