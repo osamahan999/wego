@@ -3,8 +3,8 @@ from unittest import TestCase
 from immutable_entities.immutable_event import ImmutableEvent
 
 
-class EventTest(TestCase):
-    def test_event_builder(self):
+class ImmutableEventTest(TestCase):
+    def test_immutable_event_builder(self):
         key: str = "key"
         name: str = "name"
         description: str = "description"

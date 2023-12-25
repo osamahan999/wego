@@ -3,8 +3,8 @@ from unittest import TestCase
 from immutable_entities.immutable_person import ImmutablePerson
 
 
-class PersonTest(TestCase):
-    def test_person_builder(self):
+class ImmutablePersonTest(TestCase):
+    def test_immutable_person_builder(self):
         key: str = "key"
         username: str = "username"
         first_name: str = "name"
