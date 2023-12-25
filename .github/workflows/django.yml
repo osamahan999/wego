@@ -26,5 +26,12 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     - name: Run Tests
+      env:
+          DB_NAME: test
+          DB_USER: test
+          DB_PASSWORD: test
+          DB_HOST: test
+          DB_PORT: 5432
+          DEBUG_MODE: True
       run: |
         python manage.py test
