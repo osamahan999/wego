@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django_extensions",
+    "graphene_django",
     "person",
     "event",
     "chat_group",
@@ -140,3 +141,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # # replacing auth.User
 AUTH_USER_MODEL = "person.Person"
+
+# graphene
+GRAPHENE = {"SCHEMA": "api.schema.schema"}
