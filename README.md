@@ -1,3 +1,5 @@
+[![Django CI](https://github.com/osamahan999/wego/actions/workflows/django.yml/badge.svg)](https://github.com/osamahan999/wego/actions/workflows/django.yml)
+
 Install postgres using brew
 
 `brew install postgresql   `
