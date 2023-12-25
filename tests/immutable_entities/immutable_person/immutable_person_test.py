@@ -5,7 +5,7 @@ from immutable_entities.immutable_person import ImmutablePerson
 
 class ImmutablePersonTest(TestCase):
     def test_immutable_person_builder(self):
-        key: str = "key"
+        key: int = 1
         username: str = "username"
         first_name: str = "name"
         last_name: str = "last"

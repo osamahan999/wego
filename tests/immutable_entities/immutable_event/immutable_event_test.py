@@ -5,14 +5,14 @@ from immutable_entities.immutable_event import ImmutableEvent
 
 class ImmutableEventTest(TestCase):
     def test_immutable_event_builder(self):
-        key: str = "key"
+        key: int = 1
         name: str = "name"
         description: str = "description"
         location: str = "location"
         latitude: float = 3.0
         longitude: float = 3.0
-        owner_id: str = "mediakey"
-        attendee_ids: list[str] = ["string1", "string2"]
+        owner_id: int = 2
+        attendee_ids: list[int] = [3, 4]
 
         # Assert that EventBuilder constructor works
         self.assertIsNotNone(ImmutableEvent.ImmutableEventBuilder())

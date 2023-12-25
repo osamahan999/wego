@@ -2,10 +2,10 @@ from dataclasses import dataclass
 from typing import Optional
 
 
-# Immutable entity for Me
+# Immutable entity for Person
 @dataclass(frozen=True)
 class ImmutablePerson:
-    key: Optional[str]
+    key: Optional[int]
     username: str
     first_name: str
     last_name: str
@@ -13,7 +13,7 @@ class ImmutablePerson:
     phone_number: str
 
     class ImmutablePersonBuilder:
-        key: Optional[str]
+        key: Optional[int]
         username: Optional[str]
         first_name: Optional[str]
         last_name: Optional[str]
@@ -28,7 +28,7 @@ class ImmutablePerson:
             self.email = None
             self.phone_number = None
 
-        def set_key(self, key: str) -> "ImmutablePerson.ImmutablePersonBuilder":
+        def set_key(self, key: int) -> "ImmutablePerson.ImmutablePersonBuilder":
             self.key = key
             return self
 

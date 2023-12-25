@@ -5,9 +5,9 @@ from immutable_entities.immutable_chat import ImmutableChat
 
 class ImmutableChatTest(TestCase):
     def test_immutable_chat_builder(self):
-        key: str = "key"
+        key: int = 1
         message_text: str = "message_text"
-        author_id: str = "author_1"
+        author_id: int = 1
 
         # Assert that ImmutableChatBuilder constructor works
         self.assertIsNotNone(ImmutableChat.ImmutableChatBuilder())

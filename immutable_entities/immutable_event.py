@@ -5,7 +5,7 @@ from typing import Optional
 # Immutable entity for Event
 @dataclass(frozen=True)
 class ImmutableEvent:
-    key: Optional[str]
+    key: Optional[int]
     name: str
     description: str
     location: str
@@ -15,7 +15,7 @@ class ImmutableEvent:
     attendee_ids: frozenset[str]
 
     class ImmutableEventBuilder:
-        key: Optional[str]
+        key: Optional[int]
         name: Optional[str]
         description: Optional[str]
         location: Optional[str]
@@ -34,7 +34,7 @@ class ImmutableEvent:
             self.owner_id = None
             self.attendee_ids = []
 
-        def set_key(self, key: str) -> "ImmutableEvent.ImmutableEventBuilder":
+        def set_key(self, key: int) -> "ImmutableEvent.ImmutableEventBuilder":
             self.key = key
             return self
 
@@ -64,12 +64,12 @@ class ImmutableEvent:
             self.longitude = longitude
             return self
 
-        def set_owner_id(self, owner_id: str) -> "ImmutableEvent.ImmutableEventBuilder":
+        def set_owner_id(self, owner_id: int) -> "ImmutableEvent.ImmutableEventBuilder":
             self.owner_id = owner_id
             return self
 
         def set_attendee_ids(
-            self, attendee_ids: list[str]
+            self, attendee_ids: list[int]
         ) -> "ImmutableEvent.ImmutableEventBuilder":
             self.attendee_ids = attendee_ids
             return self
