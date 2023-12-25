@@ -1,5 +1,6 @@
 from django.db import models
 
+from chat_group.models import ChatGroup
 from person.models import Person
 
 
@@ -7,6 +8,7 @@ class Event(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=70)
     description = models.CharField(max_length=350)
+    chat_group = models.ForeignKey(ChatGroup, on_delete=models.PROTECT)
     owner = models.ForeignKey(Person, on_delete=models.PROTECT)
     members = models.ManyToManyField(
         Person, related_name="events", through="EventAttendee"

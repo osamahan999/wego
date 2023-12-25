@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "django_extensions",
     "person",
     "event",
+    "chat_group",
 ]
 
 MIDDLEWARE = [
