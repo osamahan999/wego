@@ -2,7 +2,7 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 
-class Me(AbstractUser):
+class Person(AbstractUser):
     id = models.AutoField(primary_key=True)
     email = models.EmailField(null=False, unique=True)
     created_at = models.DateTimeField(auto_now_add=True)

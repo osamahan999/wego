@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django_extensions",
-    "me",
+    "person",
     "event",
 ]
 
@@ -137,4 +137,4 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # # replacing auth.User
-AUTH_USER_MODEL = "me.Me"
+AUTH_USER_MODEL = "person.Person"
