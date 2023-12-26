@@ -10,6 +10,7 @@ class Event(models.Model):
     description = models.CharField(max_length=350)
     chat_group = models.ForeignKey(ChatGroup, on_delete=models.PROTECT)
     owner = models.ForeignKey(Person, on_delete=models.PROTECT)
+    # Members contains the owner as well.
     members = models.ManyToManyField(
         Person, related_name="events", through="EventAttendee"
     )
