@@ -1,4 +1,4 @@
-from graphene import ObjectType, Schema, String
+from graphene import ObjectType, Schema
 
 from api.person_type.person_schema import PersonMutation, PersonQuery
 
@@ -12,10 +12,7 @@ class ExtendedMutation(PersonMutation):
 
 
 class Query(ExtendedQuery, ObjectType):
-    x = String()
-
-    def resolve_x(self, info):
-        return "hi!!!"
+    pass
 
 
 class Mutation(ExtendedMutation, ObjectType):
