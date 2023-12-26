@@ -8,9 +8,15 @@ from result_querier.person_querier.person_querier import PersonQuerier
 class LoginSuccess(graphene.ObjectType):
     me = graphene.Field(PersonType, required=True)
 
+    def __init__(self, me: PersonType):
+        self.me = me
+
 
 class LoginError(graphene.ObjectType):
     message = graphene.String(required=True)
+
+    def __init__(self, message: str):
+        self.message = message
 
 
 class LoginPayload(graphene.Union):
