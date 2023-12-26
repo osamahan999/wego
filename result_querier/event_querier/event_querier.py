@@ -1,6 +1,6 @@
 from django.db.models import QuerySet
 
-from event.models import Event
+from event.models import Event, EventAttendee
 from immutable_entities.immutable_event import ImmutableEvent
 
 
@@ -16,6 +16,17 @@ class EventQuerier:
                 EventQuerier.transform_to_immutable_entity(event)
                 for event in owned_events
             ]
+        )
+
+    @staticmethod
+    def get_attended_events(person_id: int):
+        # Two queries currently :( not sure how to write the django to just inner join & filter
+        events_attended = EventAttendee.objects.select_related("event").filter(
+            person_id=person_id
+        )
+        events = [attended.event for attended in events_attended]
+        return frozenset(
+            [EventQuerier.transform_to_immutable_entity(event) for event in events]
         )
 
     @staticmethod
