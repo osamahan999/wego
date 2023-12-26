@@ -7,7 +7,7 @@ from result_querier.person_querier.person_querier import PersonQuerier
 
 
 class PersonQuerierTest(TestCase):
-    def test_get_person(self):
+    def test_get_immutable_person(self):
         person_id: int = 1
         first_name: str = "first"
         last_name: str = "last"
@@ -37,4 +37,6 @@ class PersonQuerierTest(TestCase):
 
         Person.objects.get = MagicMock(return_value=person)
 
-        self.assertEqual(PersonQuerier.get_person(person.id), expected_immutable_person)
+        self.assertEqual(
+            PersonQuerier.get_immutable_person(person.id), expected_immutable_person
+        )

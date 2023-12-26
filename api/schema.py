@@ -1,11 +1,22 @@
-from graphene import ObjectType, Schema, String
+from graphene import ObjectType, Schema
+
+from api.person_type.person_schema import PersonMutation, PersonQuery
 
 
-class Query(ObjectType):
-    me = String()
-
-    def resolve_me(self, info):
-        return "hi"
+class ExtendedQuery(PersonQuery):
+    pass
 
 
-schema = Schema(query=Query)
+class ExtendedMutation(PersonMutation):
+    pass
+
+
+class Query(ExtendedQuery, ObjectType):
+    pass
+
+
+class Mutation(ExtendedMutation, ObjectType):
+    pass
+
+
+schema = Schema(query=Query, mutation=Mutation)

@@ -4,8 +4,7 @@ from person.models import Person
 
 class PersonQuerier:
     @staticmethod
-    def get_person(key: id) -> ImmutablePerson:
-        # Throws django.ObjectDoesNotExist
+    def get_immutable_person(key: int) -> ImmutablePerson:
         person: Person = Person.objects.get(id=key)
         return PersonQuerier.transform_to_immutable_entity(person)
 
@@ -14,6 +13,7 @@ class PersonQuerier:
         person_builder: ImmutablePerson.ImmutablePersonBuilder = (
             ImmutablePerson.ImmutablePersonBuilder()
         )
+
         return (
             person_builder.set_key(person.id)
             .set_email(person.email)
