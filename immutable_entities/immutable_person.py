@@ -63,10 +63,6 @@ class ImmutablePerson:
         def build(self) -> "ImmutablePerson":
             assert self.key
             assert self.username
-            assert self.first_name
-            assert self.last_name
-            assert self.email
-            assert self.phone_number
 
             return ImmutablePerson(
                 key=self.key,
