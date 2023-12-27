@@ -7,7 +7,6 @@ from event.models import Event
 from immutable_entities.immutable_event import ImmutableEvent
 from person.models import Person
 from result_querier.event_querier.event_querier import EventQuerier
-from result_querier.person_querier.person_querier import PersonQuerier
 
 
 class EventQuerierTest(TransactionTestCase):
@@ -64,12 +63,12 @@ class EventQuerierTest(TransactionTestCase):
             .set_location(event.location)
             .set_longitude(event.longitude)
             .set_latitude(event.latitude)
-            .set_owner(PersonQuerier.transform_to_immutable_entity(self.person))
+            .set_owner(self.persontransform_to_immutable_entity())
             .set_attendees(
                 [
-                    PersonQuerier.transform_to_immutable_entity(self.attendee_1),
-                    PersonQuerier.transform_to_immutable_entity(self.attendee_2),
-                    PersonQuerier.transform_to_immutable_entity(self.person),
+                    self.attendee_1transform_to_immutable_entity(),
+                    self.attendee_2.transform_to_immutable_entity(),
+                    self.person.transform_to_immutable_entity(),
                 ]
             )
             .build()
@@ -107,12 +106,12 @@ class EventQuerierTest(TransactionTestCase):
             .set_location(event.location)
             .set_longitude(event.longitude)
             .set_latitude(event.latitude)
-            .set_owner(PersonQuerier.transform_to_immutable_entity(self.person))
+            .set_owner(self.person.transform_to_immutable_entity())
             .set_attendees(
                 [
-                    PersonQuerier.transform_to_immutable_entity(self.attendee_1),
-                    PersonQuerier.transform_to_immutable_entity(self.attendee_2),
-                    PersonQuerier.transform_to_immutable_entity(self.person),
+                    self.attendee_1.transform_to_immutable_entity(),
+                    self.attendee_2.transform_to_immutable_entity(),
+                    self.person.transform_to_immutable_entity(),
                 ]
             )
             .build()

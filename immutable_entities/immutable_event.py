@@ -2,7 +2,6 @@ from dataclasses import dataclass
 from typing import Optional
 
 from api.event_type.event_type import EventType
-from immutable_entities.immutable_person import ImmutablePerson
 
 
 # Immutable entity for Event
@@ -14,8 +13,10 @@ class ImmutableEvent:
     location: str
     longitude: float
     latitude: float
-    owner: ImmutablePerson
-    attendees: frozenset[ImmutablePerson]
+    # ImmutablePerson
+    owner: object
+    # ImmutablePerson
+    attendees: frozenset
 
     class ImmutableEventBuilder:
         key: Optional[int]
@@ -24,8 +25,8 @@ class ImmutableEvent:
         location: Optional[str]
         longitude: Optional[float]
         latitude: Optional[float]
-        owner: Optional[ImmutablePerson]
-        attendees: list[ImmutablePerson]
+        owner: Optional
+        attendees: list
 
         def __init__(self):
             self.key = None
@@ -67,14 +68,12 @@ class ImmutableEvent:
             self.longitude = longitude
             return self
 
-        def set_owner(
-            self, owner: ImmutablePerson
-        ) -> "ImmutableEvent.ImmutableEventBuilder":
+        def set_owner(self, owner) -> "ImmutableEvent.ImmutableEventBuilder":
             self.owner = owner
             return self
 
         def set_attendees(
-            self, attendees: list[ImmutablePerson]
+            self, attendees: list
         ) -> "ImmutableEvent.ImmutableEventBuilder":
             self.attendees = attendees
             return self

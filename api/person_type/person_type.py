@@ -30,7 +30,7 @@ class PersonType(graphene.ObjectType):
         self.email = email
         self.phone_number = phone_number
 
-    def resolve_owned_events(self):
+    def resolve_owned_events(self, info):
         return [
             immutable_event.to_event_type()
             for immutable_event in EventQuerier.get_owned_events(self.id)

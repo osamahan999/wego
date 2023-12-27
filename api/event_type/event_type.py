@@ -1,8 +1,6 @@
 import graphene
 from graphene.relay import Connection
 
-from api.person_type.person_type import PersonType
-
 
 class EventType(graphene.ObjectType):
     id = graphene.Int()
@@ -11,7 +9,7 @@ class EventType(graphene.ObjectType):
     location = graphene.String()
     latitude = graphene.Float()
     longitude = graphene.Float()
-    owner = graphene.Field(PersonType)
+    owner = graphene.Field("api.person_type.person_type.PersonType")
 
     def __init__(
         self,
@@ -21,8 +19,8 @@ class EventType(graphene.ObjectType):
         location: str,
         latitude: float,
         longitude: float,
-        owner: PersonType,
-        attendees: list[PersonType],
+        owner,
+        attendees,
     ):
         self.id = event_id
         self.name = name
