@@ -1,6 +1,8 @@
 from dataclasses import dataclass
 from typing import Optional
 
+from api.person_type.person_type import PersonType
+
 
 # Immutable entity for Person
 @dataclass(frozen=True)
@@ -83,3 +85,14 @@ class ImmutablePerson:
             .set_first_name(self.first_name)
             .set_last_name(self.last_name)
         )
+
+    def to_person_type(self) -> PersonType:
+        person: PersonType = PersonType(
+            person_id=self.key,
+            username=self.username,
+            first_name=self.first_name,
+            last_name=self.last_name,
+            email=self.email,
+            phone_number=self.phone_number,
+        )
+        return person

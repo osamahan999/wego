@@ -63,8 +63,14 @@ class EventQuerierTest(TransactionTestCase):
             .set_location(event.location)
             .set_longitude(event.longitude)
             .set_latitude(event.latitude)
-            .set_owner_id(self.person.id)
-            .set_attendee_ids([self.attendee_1.id, self.attendee_2.id, self.person.id])
+            .set_owner(self.person.transform_to_immutable_entity())
+            .set_attendees(
+                [
+                    self.attendee_1.transform_to_immutable_entity(),
+                    self.attendee_2.transform_to_immutable_entity(),
+                    self.person.transform_to_immutable_entity(),
+                ]
+            )
             .build()
         )
 
@@ -100,8 +106,14 @@ class EventQuerierTest(TransactionTestCase):
             .set_location(event.location)
             .set_longitude(event.longitude)
             .set_latitude(event.latitude)
-            .set_owner_id(self.person.id)
-            .set_attendee_ids([self.attendee_1.id, self.attendee_2.id, self.person.id])
+            .set_owner(self.person.transform_to_immutable_entity())
+            .set_attendees(
+                [
+                    self.attendee_1.transform_to_immutable_entity(),
+                    self.attendee_2.transform_to_immutable_entity(),
+                    self.person.transform_to_immutable_entity(),
+                ]
+            )
             .build()
         )
 

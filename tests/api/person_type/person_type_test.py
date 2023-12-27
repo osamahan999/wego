@@ -33,4 +33,4 @@ class PersonTypeTest(TestCase):
             phone_number=phone_number,
         )
 
-        self.assertEqual(PersonType.get_person_type(person), expected_person_type)
+        self.assertEqual(person.to_person_type(), expected_person_type)

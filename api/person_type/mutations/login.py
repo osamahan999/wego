@@ -1,14 +1,13 @@
 import graphene
 from django.contrib.auth import authenticate, login
 
-from api.person_type.person_type import PersonType
 from result_querier.person_querier.person_querier import PersonQuerier
 
 
 class LoginSuccess(graphene.ObjectType):
-    me = graphene.Field(PersonType, required=True)
+    me = graphene.Field("api.person_type.person_type.PersonType", required=True)
 
-    def __init__(self, me: PersonType):
+    def __init__(self, me):
         self.me = me
 
 
@@ -38,7 +37,6 @@ class Login(graphene.Mutation):
 
         login(info.context, user)
 
-        me: PersonType = PersonType.get_person_type(
-            PersonQuerier.get_immutable_person(user.id)
-        )
+        me = PersonQuerier.get_immutable_person(user.id).to_person_type()
+
         return LoginSuccess(me)

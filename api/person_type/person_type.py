@@ -1,6 +1,6 @@
 import graphene
 
-from immutable_entities.immutable_person import ImmutablePerson
+from result_querier.event_querier.event_querier import EventQuerier
 
 
 class PersonType(graphene.ObjectType):
@@ -10,6 +10,9 @@ class PersonType(graphene.ObjectType):
     last_name = graphene.String()
     email = graphene.String()
     phone_number = graphene.String()
+    owned_events = graphene.ConnectionField(
+        "api.event_type.event_type.EventTypeConnection"
+    )
 
     def __init__(
         self,
@@ -27,14 +30,8 @@ class PersonType(graphene.ObjectType):
         self.email = email
         self.phone_number = phone_number
 
-    @staticmethod
-    def get_person_type(immutable_person: ImmutablePerson) -> "PersonType":
-        person: PersonType = PersonType(
-            person_id=immutable_person.key,
-            username=immutable_person.username,
-            first_name=immutable_person.first_name,
-            last_name=immutable_person.last_name,
-            email=immutable_person.email,
-            phone_number=immutable_person.phone_number,
-        )
-        return person
+    def resolve_owned_events(self, info):
+        return [
+            immutable_event.to_event_type()
+            for immutable_event in EventQuerier.get_owned_events(self.id)
+        ]
