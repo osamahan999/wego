@@ -1,6 +1,7 @@
 from unittest import TestCase
 
 from immutable_entities.immutable_event import ImmutableEvent
+from immutable_entities.immutable_person import ImmutablePerson
 
 
 class ImmutableEventTest(TestCase):
@@ -11,8 +12,29 @@ class ImmutableEventTest(TestCase):
         location: str = "location"
         latitude: float = 3.0
         longitude: float = 3.0
-        owner_id: int = 2
-        attendee_ids: list[int] = [3, 4]
+        owner: ImmutablePerson = (
+            ImmutablePerson.ImmutablePersonBuilder()
+            .set_username("test")
+            .set_key(1)
+            .set_email("x@gmail.com")
+            .build()
+        )
+        attendees: list[ImmutablePerson] = [
+            (
+                ImmutablePerson.ImmutablePersonBuilder()
+                .set_username("test2")
+                .set_key(2)
+                .set_email("x2@gmail.com")
+                .build()
+            ),
+            (
+                ImmutablePerson.ImmutablePersonBuilder()
+                .set_username("test3")
+                .set_key(3)
+                .set_email("x3@gmail.com")
+                .build()
+            ),
+        ]
 
         # Assert that EventBuilder constructor works
         self.assertIsNotNone(ImmutableEvent.ImmutableEventBuilder())
@@ -29,8 +51,8 @@ class ImmutableEventTest(TestCase):
             .set_location(location)
             .set_longitude(longitude)
             .set_latitude(latitude)
-            .set_owner_id(owner_id)
-            .set_attendee_ids(attendee_ids)
+            .set_owner(owner)
+            .set_attendees(attendees)
             .build()
         )
 
@@ -42,8 +64,8 @@ class ImmutableEventTest(TestCase):
         self.assertEqual(event.location, location)
         self.assertEqual(event.latitude, latitude)
         self.assertEqual(event.longitude, longitude)
-        self.assertEqual(event.owner_id, owner_id)
-        self.assertEqual(event.attendee_ids, frozenset(attendee_ids))
+        self.assertEqual(event.owner, owner)
+        self.assertEqual(event.attendees, frozenset(attendees))
 
         # to_builder
         self.assertIsInstance(event.to_builder(), ImmutableEvent.ImmutableEventBuilder)
@@ -55,5 +77,5 @@ class ImmutableEventTest(TestCase):
         self.assertEqual(event.to_builder().location, location)
         self.assertEqual(event.to_builder().latitude, latitude)
         self.assertEqual(event.to_builder().longitude, longitude)
-        self.assertEqual(event.to_builder().owner_id, owner_id)
-        self.assertEqual(set(event.to_builder().attendee_ids), set(attendee_ids))
+        self.assertEqual(event.to_builder().owner, owner)
+        self.assertEqual(set(event.to_builder().attendees), set(attendees))

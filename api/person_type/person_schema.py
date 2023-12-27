@@ -10,9 +10,12 @@ class PersonQuery(ObjectType):
     me = graphene.Field(PersonType, required=True)
 
     def resolve_me(self, info):
-        return PersonType.get_person_type(
-            PersonQuerier.transform_to_immutable_entity(info.context.user)
-        )
+        return PersonQuerier.transform_to_immutable_entity(
+            info.context.user
+        ).to_person_type()
+
+    def resolve_owned_events(self, info):
+        return []
 
 
 class PersonMutation(graphene.ObjectType):

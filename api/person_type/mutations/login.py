@@ -38,7 +38,6 @@ class Login(graphene.Mutation):
 
         login(info.context, user)
 
-        me: PersonType = PersonType.get_person_type(
-            PersonQuerier.get_immutable_person(user.id)
-        )
+        me: PersonType = PersonQuerier.get_immutable_person(user.id).to_person_type()
+
         return LoginSuccess(me)

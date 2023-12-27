@@ -1,6 +1,9 @@
 from dataclasses import dataclass
 from typing import Optional
 
+from api.event_type.event_type import EventType
+from immutable_entities.immutable_person import ImmutablePerson
+
 
 # Immutable entity for Event
 @dataclass(frozen=True)
@@ -11,8 +14,8 @@ class ImmutableEvent:
     location: str
     longitude: float
     latitude: float
-    owner_id: str
-    attendee_ids: frozenset[str]
+    owner: ImmutablePerson
+    attendees: frozenset[ImmutablePerson]
 
     class ImmutableEventBuilder:
         key: Optional[int]
@@ -21,8 +24,8 @@ class ImmutableEvent:
         location: Optional[str]
         longitude: Optional[float]
         latitude: Optional[float]
-        owner_id: Optional[str]
-        attendee_ids: list[str]
+        owner: Optional[ImmutablePerson]
+        attendees: list[ImmutablePerson]
 
         def __init__(self):
             self.key = None
@@ -31,8 +34,8 @@ class ImmutableEvent:
             self.location = None
             self.latitude = None
             self.longitude = None
-            self.owner_id = None
-            self.attendee_ids = []
+            self.owner = None
+            self.attendees = []
 
         def set_key(self, key: int) -> "ImmutableEvent.ImmutableEventBuilder":
             self.key = key
@@ -64,14 +67,16 @@ class ImmutableEvent:
             self.longitude = longitude
             return self
 
-        def set_owner_id(self, owner_id: int) -> "ImmutableEvent.ImmutableEventBuilder":
-            self.owner_id = owner_id
+        def set_owner(
+            self, owner: ImmutablePerson
+        ) -> "ImmutableEvent.ImmutableEventBuilder":
+            self.owner = owner
             return self
 
-        def set_attendee_ids(
-            self, attendee_ids: list[int]
+        def set_attendees(
+            self, attendees: list[ImmutablePerson]
         ) -> "ImmutableEvent.ImmutableEventBuilder":
-            self.attendee_ids = attendee_ids
+            self.attendees = attendees
             return self
 
         def build(self) -> "ImmutableEvent":
@@ -81,8 +86,8 @@ class ImmutableEvent:
             assert self.location
             assert self.longitude
             assert self.latitude
-            assert self.owner_id
-            assert self.attendee_ids
+            assert self.owner
+            assert self.attendees
 
             return ImmutableEvent(
                 key=self.key,
@@ -91,8 +96,8 @@ class ImmutableEvent:
                 location=self.location,
                 longitude=self.longitude,
                 latitude=self.latitude,
-                owner_id=self.owner_id,
-                attendee_ids=frozenset(self.attendee_ids),
+                owner=self.owner,
+                attendees=frozenset(self.attendees),
             )
 
     def to_builder(self) -> ImmutableEventBuilder:
@@ -104,6 +109,19 @@ class ImmutableEvent:
             .set_location(self.location)
             .set_longitude(self.longitude)
             .set_latitude(self.latitude)
-            .set_owner_id(self.owner_id)
-            .set_attendee_ids(list(self.attendee_ids))
+            .set_owner(self.owner)
+            .set_attendees(list(self.attendees))
         )
+
+    def to_event_type(self) -> EventType:
+        event: EventType = EventType(
+            event_id=self.key,
+            name=self.name,
+            description=self.description,
+            location=self.location,
+            latitude=self.latitude,
+            longitude=self.longitude,
+            owner=self.owner.to_person_type(),
+            attendees=[attendee.to_person_type() for attendee in self.attendees],
+        )
+        return event

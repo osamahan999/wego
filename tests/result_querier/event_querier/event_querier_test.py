@@ -7,6 +7,7 @@ from event.models import Event
 from immutable_entities.immutable_event import ImmutableEvent
 from person.models import Person
 from result_querier.event_querier.event_querier import EventQuerier
+from result_querier.person_querier.person_querier import PersonQuerier
 
 
 class EventQuerierTest(TransactionTestCase):
@@ -63,8 +64,14 @@ class EventQuerierTest(TransactionTestCase):
             .set_location(event.location)
             .set_longitude(event.longitude)
             .set_latitude(event.latitude)
-            .set_owner_id(self.person.id)
-            .set_attendee_ids([self.attendee_1.id, self.attendee_2.id, self.person.id])
+            .set_owner(PersonQuerier.transform_to_immutable_entity(self.person))
+            .set_attendees(
+                [
+                    PersonQuerier.transform_to_immutable_entity(self.attendee_1),
+                    PersonQuerier.transform_to_immutable_entity(self.attendee_2),
+                    PersonQuerier.transform_to_immutable_entity(self.person),
+                ]
+            )
             .build()
         )
 
@@ -100,8 +107,14 @@ class EventQuerierTest(TransactionTestCase):
             .set_location(event.location)
             .set_longitude(event.longitude)
             .set_latitude(event.latitude)
-            .set_owner_id(self.person.id)
-            .set_attendee_ids([self.attendee_1.id, self.attendee_2.id, self.person.id])
+            .set_owner(PersonQuerier.transform_to_immutable_entity(self.person))
+            .set_attendees(
+                [
+                    PersonQuerier.transform_to_immutable_entity(self.attendee_1),
+                    PersonQuerier.transform_to_immutable_entity(self.attendee_2),
+                    PersonQuerier.transform_to_immutable_entity(self.person),
+                ]
+            )
             .build()
         )
 
