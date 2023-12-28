@@ -1,7 +1,9 @@
+from __future__ import annotations
+
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-from immutable_entities.immutable_person import ImmutablePerson
+from immutable_entities.immutable_person import immutable_person
 
 
 class Person(AbstractUser):
@@ -11,9 +13,9 @@ class Person(AbstractUser):
     updated_at = models.DateTimeField(auto_now=True)
     phone_number = models.CharField(max_length=15, null=True, blank=True)
 
-    def transform_to_immutable_entity(self) -> ImmutablePerson:
-        person_builder: ImmutablePerson.ImmutablePersonBuilder = (
-            ImmutablePerson.ImmutablePersonBuilder()
+    def transform_to_immutable_entity(self) -> immutable_person.ImmutablePerson:
+        person_builder: immutable_person.ImmutablePerson.ImmutablePersonBuilder = (
+            immutable_person.ImmutablePerson.ImmutablePersonBuilder()
         )
 
         return (
