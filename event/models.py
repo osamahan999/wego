@@ -1,7 +1,9 @@
+from __future__ import annotations
+
 from django.db import models
 
 from chat_group.models import ChatGroup
-from immutable_entities.immutable_event import ImmutableEvent
+from immutable_entities.immutable_event import immutable_event
 
 
 class Event(models.Model):
@@ -21,9 +23,9 @@ class Event(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    def transform_to_immutable_entity(self) -> ImmutableEvent:
-        event_builder: ImmutableEvent.ImmutableEventBuilder = (
-            ImmutableEvent.ImmutableEventBuilder()
+    def transform_to_immutable_entity(self) -> immutable_event.ImmutableEvent:
+        event_builder: immutable_event.ImmutableEvent.ImmutableEventBuilder = (
+            immutable_event.ImmutableEvent.ImmutableEventBuilder()
         )
 
         return (
