@@ -49,6 +49,7 @@ jobs:
           DB_PASSWORD: postgres
           DB_HOST: localhost
           DB_PORT: 5432
+          SECRET_KEY: KEY
           DEBUG_MODE: True
       run: |
         python manage.py test

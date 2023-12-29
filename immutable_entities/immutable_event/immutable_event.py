@@ -3,8 +3,8 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Optional
 
-import immutable_entities.immutable_person.immutable_person
 from api.event_type.event_type import EventType
+from immutable_entities.immutable_person import immutable_person
 
 
 # Immutable entity for Event
@@ -17,9 +17,9 @@ class ImmutableEvent:
     longitude: float
     latitude: float
     # ImmutablePerson
-    owner: immutable_entities.ImmutablePerson
+    owner: immutable_person.ImmutablePerson
     # ImmutablePerson
-    attendees: frozenset[immutable_entities.ImmutablePerson]
+    attendees: frozenset[immutable_person.ImmutablePerson]
 
     class ImmutableEventBuilder:
         key: Optional[int]
@@ -28,8 +28,8 @@ class ImmutableEvent:
         location: Optional[str]
         longitude: Optional[float]
         latitude: Optional[float]
-        owner: Optional[immutable_entities.ImmutablePerson]
-        attendees: list[immutable_entities.ImmutablePerson]
+        owner: Optional[immutable_person.ImmutablePerson]
+        attendees: list[immutable_person.ImmutablePerson]
 
         def __init__(self):
             self.key = None
@@ -72,19 +72,18 @@ class ImmutableEvent:
             return self
 
         def set_owner(
-            self, owner: immutable_entities.ImmutablePerson
+            self, owner: immutable_person.ImmutablePerson
         ) -> "ImmutableEvent.ImmutableEventBuilder":
             self.owner = owner
             return self
 
         def set_attendees(
-            self, attendees: list[immutable_entities.ImmutablePerson]
+            self, attendees: list[immutable_person.ImmutablePerson]
         ) -> "ImmutableEvent.ImmutableEventBuilder":
             self.attendees = attendees
             return self
 
         def build(self) -> "ImmutableEvent":
-            assert self.key
             assert self.name
             assert self.description
             assert self.location
