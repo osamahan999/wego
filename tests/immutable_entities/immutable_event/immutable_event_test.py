@@ -1,3 +1,4 @@
+from datetime import datetime, timedelta, timezone
 from unittest import TestCase
 
 from immutable_entities.immutable_event import ImmutableEvent
@@ -35,6 +36,7 @@ class ImmutableEventTest(TestCase):
                 .build()
             ),
         ]
+        start_of_event = datetime.now(timezone.utc) + timedelta(days=2)
 
         # Assert that EventBuilder constructor works
         self.assertIsNotNone(ImmutableEvent.ImmutableEventBuilder())
@@ -53,6 +55,7 @@ class ImmutableEventTest(TestCase):
             .set_latitude(latitude)
             .set_owner(owner)
             .set_attendees(attendees)
+            .set_start_of_event(start_of_event)
             .build()
         )
 
@@ -66,6 +69,7 @@ class ImmutableEventTest(TestCase):
         self.assertEqual(event.longitude, longitude)
         self.assertEqual(event.owner, owner)
         self.assertEqual(event.attendees, frozenset(attendees))
+        self.assertEqual(event.start_of_event, start_of_event)
 
         # to_builder
         self.assertIsInstance(event.to_builder(), ImmutableEvent.ImmutableEventBuilder)
@@ -79,3 +83,4 @@ class ImmutableEventTest(TestCase):
         self.assertEqual(event.to_builder().longitude, longitude)
         self.assertEqual(event.to_builder().owner, owner)
         self.assertEqual(set(event.to_builder().attendees), set(attendees))
+        self.assertEqual(event.to_builder().start_of_event, start_of_event)

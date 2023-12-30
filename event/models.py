@@ -19,6 +19,8 @@ class Event(models.Model):
     location = models.CharField(max_length=250)
     latitude = models.FloatField()
     longitude = models.FloatField()
+    start_of_event = models.DateTimeField(null=False)
+    end_of_event = models.DateTimeField(null=True)
     # TODO add a photos ManyToMany field.
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -42,6 +44,8 @@ class Event(models.Model):
                     for member in self.members.all()
                 ]
             )
+            .set_start_of_event(self.start_of_event)
+            .set_end_of_event(self.end_of_event)
             .build()
         )
 
