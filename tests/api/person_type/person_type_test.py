@@ -1,3 +1,5 @@
+from datetime import datetime, timedelta, timezone
+
 from django.test import Client as DjangoTestClient, RequestFactory, TransactionTestCase
 from graphene.test import Client as GrapheneClient
 
@@ -93,6 +95,7 @@ class PersonTypeTest(TransactionTestCase):
                 .set_latitude(3.0)
                 .set_longitude(4.0)
                 .set_attendees([self.user.transform_to_immutable_entity()])
+                .set_start_of_event(datetime.now(timezone.utc) + timedelta(days=2))
                 .build(),
                 immutable_event.ImmutableEvent.ImmutableEventBuilder()
                 .set_owner(self.user.transform_to_immutable_entity())
@@ -102,6 +105,7 @@ class PersonTypeTest(TransactionTestCase):
                 .set_latitude(3.0)
                 .set_longitude(4.0)
                 .set_attendees([self.user.transform_to_immutable_entity()])
+                .set_start_of_event(datetime.now(timezone.utc) + timedelta(days=2))
                 .build(),
             ]
         )

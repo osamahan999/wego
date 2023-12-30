@@ -1,3 +1,5 @@
+from datetime import datetime, timedelta, timezone
+
 from django.db import connection
 from django.test import TransactionTestCase
 from django.test.utils import CaptureQueriesContext
@@ -41,6 +43,7 @@ class EventQuerierTest(TransactionTestCase):
 
     def test_get_owned_events(self):
         chat_group = ChatGroup.objects.create(status=StatusEnum.PUBLISHED)
+        start_of_event = datetime.now(timezone.utc) + timedelta(days=2)
 
         event = Event.objects.create(
             name="test",
@@ -50,6 +53,7 @@ class EventQuerierTest(TransactionTestCase):
             location="loc",
             latitude=3.0,
             longitude=4.0,
+            start_of_event=start_of_event,
         )
         event.members.add(self.person.id)
         event.members.add(self.attendee_1)
@@ -64,6 +68,7 @@ class EventQuerierTest(TransactionTestCase):
             .set_longitude(event.longitude)
             .set_latitude(event.latitude)
             .set_owner(self.person.transform_to_immutable_entity())
+            .set_start_of_event(start_of_event)
             .set_attendees(
                 [
                     self.attendee_1.transform_to_immutable_entity(),
@@ -84,6 +89,7 @@ class EventQuerierTest(TransactionTestCase):
 
     def test_get_attended_events(self):
         chat_group = ChatGroup.objects.create(status=StatusEnum.PUBLISHED)
+        start_of_event = datetime.now(timezone.utc) + timedelta(days=2)
 
         event = Event.objects.create(
             name="test",
@@ -93,6 +99,7 @@ class EventQuerierTest(TransactionTestCase):
             location="loc",
             latitude=3.0,
             longitude=4.0,
+            start_of_event=start_of_event,
         )
         event.members.add(self.person.id)
         event.members.add(self.attendee_1)
@@ -114,12 +121,15 @@ class EventQuerierTest(TransactionTestCase):
                     self.person.transform_to_immutable_entity(),
                 ]
             )
+            .set_start_of_event(start_of_event)
             .build()
         )
 
         with CaptureQueriesContext(connection) as context:
             self.assertEqual(
-                EventQuerier.get_attended_events(self.person.id),
+                EventQuerier.get_attended_events(
+                    self.person.id, only_future_events=False
+                ),
                 frozenset([expected_immutable_event]),
             )
 

@@ -1,3 +1,5 @@
+from datetime import datetime, timedelta, timezone
+
 from chat_group.models import ChatGroup, StatusEnum
 from event.models import Event, EventAttendee
 from immutable_entities.immutable_event import immutable_event
@@ -23,6 +25,7 @@ class Seeder:
                 longitude=immutable_events[i].longitude,
                 owner_id=immutable_events[i].owner.key,
                 chat_group_id=chat_groups[i].id,
+                start_of_event=datetime.now(timezone.utc) + timedelta(days=2),
             )
             for i in range(len(immutable_events))
         ]

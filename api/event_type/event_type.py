@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import graphene
 from graphene.relay import Connection
 
@@ -10,6 +12,11 @@ class EventType(graphene.ObjectType):
     latitude = graphene.Float()
     longitude = graphene.Float()
     owner = graphene.Field("api.person_type.person_type.PersonType")
+    attendees = graphene.ConnectionField(
+        "api.person_type.person_type.PersonTypeConnection"
+    )
+    start_of_event = graphene.DateTime()
+    end_of_event = graphene.DateTime()
 
     def __init__(
         self,
@@ -21,6 +28,8 @@ class EventType(graphene.ObjectType):
         longitude: float,
         owner,
         attendees,
+        start_of_event: datetime,
+        end_of_event: datetime,
     ):
         self.id = event_id
         self.name = name
@@ -30,6 +39,8 @@ class EventType(graphene.ObjectType):
         self.latitude = latitude
         self.owner = owner
         self.attendees = attendees
+        self.start_of_event = start_of_event
+        self.end_of_event = end_of_event
 
 
 class EventTypeConnection(Connection):

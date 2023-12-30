@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from datetime import datetime
 from typing import Optional
 
 from api.event_type.event_type import EventType
@@ -20,6 +21,8 @@ class ImmutableEvent:
     owner: immutable_person.ImmutablePerson
     # ImmutablePerson
     attendees: frozenset[immutable_person.ImmutablePerson]
+    start_of_event: datetime
+    end_of_event: Optional[datetime]
 
     class ImmutableEventBuilder:
         key: Optional[int]
@@ -30,6 +33,8 @@ class ImmutableEvent:
         latitude: Optional[float]
         owner: Optional[immutable_person.ImmutablePerson]
         attendees: list[immutable_person.ImmutablePerson]
+        start_of_event: Optional[datetime]
+        end_of_event: Optional[datetime]
 
         def __init__(self):
             self.key = None
@@ -38,6 +43,8 @@ class ImmutableEvent:
             self.location = None
             self.latitude = None
             self.longitude = None
+            self.start_of_event = None
+            self.end_of_event = None
             self.owner = None
             self.attendees = []
 
@@ -83,6 +90,18 @@ class ImmutableEvent:
             self.attendees = attendees
             return self
 
+        def set_start_of_event(
+            self, start_of_event: datetime
+        ) -> "ImmutableEvent.ImmutableEventBuilder":
+            self.start_of_event = start_of_event
+            return self
+
+        def set_end_of_event(
+            self, end_of_event: datetime
+        ) -> "ImmutableEvent.ImmutableEventBuilder":
+            self.end_of_event = end_of_event
+            return self
+
         def build(self) -> "ImmutableEvent":
             assert self.name
             assert self.description
@@ -91,6 +110,7 @@ class ImmutableEvent:
             assert self.latitude
             assert self.owner
             assert self.attendees
+            assert self.start_of_event
 
             return ImmutableEvent(
                 key=self.key,
@@ -101,6 +121,8 @@ class ImmutableEvent:
                 latitude=self.latitude,
                 owner=self.owner,
                 attendees=frozenset(self.attendees),
+                start_of_event=self.start_of_event,
+                end_of_event=self.end_of_event,
             )
 
     def to_builder(self) -> ImmutableEventBuilder:
@@ -114,6 +136,8 @@ class ImmutableEvent:
             .set_latitude(self.latitude)
             .set_owner(self.owner)
             .set_attendees(list(self.attendees))
+            .set_start_of_event(self.start_of_event)
+            .set_end_of_event(self.end_of_event)
         )
 
     def to_event_type(self) -> EventType:
@@ -126,5 +150,7 @@ class ImmutableEvent:
             longitude=self.longitude,
             owner=self.owner.to_person_type(),
             attendees=[attendee.to_person_type() for attendee in self.attendees],
+            start_of_event=self.start_of_event,
+            end_of_event=self.end_of_event,
         )
         return event
